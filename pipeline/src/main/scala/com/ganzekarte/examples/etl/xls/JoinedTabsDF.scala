@@ -3,39 +3,39 @@ package com.ganzekarte.examples.etl.xls
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 /**
- * The object `JoinedTabsDF` provides utility functions to join the dataframes
- * from `RidershipMasterTabDF` and `TimeSeriesDataTabDF`.
+ * The `JoinedTabsDF` utility object offers functionality to merge dataframes
+ * from both `RidershipMasterTabDF` and `TimeSeriesDataTabDF`. Furthermore, it ensures that the columns are named
+ * consistently for downstream processing.
  */
 object JoinedTabsDF {
 
   /**
-   * Joins the dataframes from RidershipMasterTabDF and TimeSeriesDataTabDF based on the 'checksum' column.
-   * Filters out rows where columns UPT, VRM, VRH, and VOMS are all zero.
+   * Combines the dataframes from RidershipMasterTabDF and TimeSeriesDataTabDF based on the shared 'checksum' column.
+   * The combined dataframe is sanitized to ensure column names follow a specific pattern: replacing spaces with
+   * underscores and converting to lowercase.
    *
-   * @param masterTabDF         Instance of RidershipMasterTabDF containing the master data.
-   * @param timeSeriesDataTabDF Instance of TimeSeriesDataTabDF containing time series data.
-   * @return A new instance of JoinedTabsDF containing the joined dataframe.
+   * @param masterTabDF         An instance of RidershipMasterTabDF containing master data.
+   * @param timeSeriesDataTabDF An instance of TimeSeriesDataTabDF holding time series data.
+   * @return A new instance of JoinedTabsDF encapsulating the merged dataframe.
    */
   def fromMasterTimeSeriesDFPair(masterTabDF: RidershipMasterTabDF,
                                  timeSeriesDataTabDF: TimeSeriesDataTabDF): JoinedTabsDF = {
 
-    // Filter and join the dataframes
+    // Joining the dataframes using the 'checksum' column.
     val joinedTabsDF = timeSeriesDataTabDF
       .dataframe()
       .join(masterTabDF.dataframe(), Seq("checksum"))
 
-    // Create an instance of JoinedTabsDF and display the first row of the joined dataframe
-    val joined = new JoinedTabsDF(joinedTabsDF)
-      .withSanitizedColumns
-    joined
+    // Sanitizing column names post-joining.
+    new JoinedTabsDF(joinedTabsDF).withSanitizedColumns
   }
 
   /**
-   * Helper function to sanitize column names:
-   * Replaces spaces with underscores and converts to lowercase.
+   * Transforms a given column name by replacing spaces with underscores and converting the entire string to lowercase.
+   * This ensures consistency in column naming throughout the application.
    *
-   * @param name Original column name.
-   * @return Sanitized column name.
+   * @param name A string representing the original column name.
+   * @return A string reflecting the sanitized column name.
    */
   def sanitizeColumnNames(name: String): String = {
     name.replaceAll("\\s+", "_").toLowerCase()
@@ -43,24 +43,31 @@ object JoinedTabsDF {
 }
 
 /**
- * Represents a joined dataframe from RidershipMasterTabDF and TimeSeriesDataTabDF.
+ * `JoinedTabsDF` represents a dataframe resulting from the merge of `RidershipMasterTabDF` and `TimeSeriesDataTabDF`.
+ * This class provides utility functions for operations specific to this merged dataframe.
  *
- * @param df Underlying dataframe that this class wraps around.
+ * @param df A dataframe representing the merged data.
  */
 class JoinedTabsDF(df: DataFrame) {
 
   /**
-   * Provides access to the underlying data frame.
+   * Provides access to the encapsulated dataframe.
    *
    * @return The underlying DataFrame.
    */
   def dataframe(): DataFrame = df
 
+  /**
+   * Returns a new instance of JoinedTabsDF where all column names are sanitized:
+   * spaces are replaced with underscores and names are converted to lowercase.
+   * This aids in standardizing the dataframe structure for future operations.
+   *
+   * @return A new instance of JoinedTabsDF with sanitized column names.
+   */
   def withSanitizedColumns: JoinedTabsDF = {
-    val sanitized = df.columns.foldLeft(df) { (updatedDF, columnName) =>
-      updatedDF.withColumnRenamed(columnName, JoinedTabsDF.sanitizeColumnNames(columnName))
+    val sanitizedDF = df.columns.foldLeft(df) { (currentDF, columnName) =>
+      currentDF.withColumnRenamed(columnName, JoinedTabsDF.sanitizeColumnNames(columnName))
     }
-    new JoinedTabsDF(sanitized)
+    new JoinedTabsDF(sanitizedDF)
   }
-
 }

@@ -1,7 +1,7 @@
-package com.ganzekarte.examples.steps.step_4
+package com.ganzekarte.examples.etl.steps.step_4
 
 import com.crealytics.spark.excel.ExcelDataFrameReader
-import com.ganzekarte.examples.steps.step_4.FieldTransformationDefinitions._
+import com.ganzekarte.examples.etl.steps.step_4.FieldTransformationDefinitions._
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.{DataFrame, SparkSession}
 

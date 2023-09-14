@@ -1,13 +1,14 @@
-import com.ganzekarte.examples.steps.step_2.RidershipMasterTabDF
+package com.ganzekarte.examples.etl.steps.step_1
+
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 
 object Pipeline {
 
   def main(args: Array[String]): Unit = {
-    run(args(0))
+    ???
   }
-  def run(path: String): Unit = {
+  def run(): Unit = {
     // Create a Spark configuration
     val conf = new SparkConf()
       .setMaster("local[*]")
@@ -21,8 +22,6 @@ object Pipeline {
         .appName("entrypoint")
         .getOrCreate()
 
-    val df = RidershipMasterTabDF.xlsFromPath(path = path)
-    df.show(5)
   }
 
 }

@@ -1,7 +1,7 @@
-package com.ganzekarte.examples.steps.step_5
+package com.ganzekarte.examples.etl.steps.step_5
 
 import com.crealytics.spark.excel.ExcelDataFrameReader
-import com.ganzekarte.examples.steps.step_5.FieldTransformationDefinitions._
+import com.ganzekarte.examples.etl.steps.step_5.FieldTransformationDefinitions._
 import org.apache.spark.sql.functions.{col, concat_ws, md5}
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.{DataFrame, SparkSession}
@@ -14,7 +14,6 @@ object RidershipMasterTabDF {
    * It also adds a checksum column to the resulting data frame.
    *
    * @param path    The path to the Excel file.
-   * @param headers A sequence of XLS column headers to be used when constructing the DataFrame schema.
    * @param spark   Implicit SparkSession instance for data processing.
    * @return An instance of RidershipMasterTabDF with the added checksum column.
    */

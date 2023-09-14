@@ -2,7 +2,7 @@ package com.ganzekarte.examples.steps.step_5
 
 import com.crealytics.spark.excel.ExcelDataFrameReader
 import com.ganzekarte.examples.steps.step_5.FieldTransformationDefinitions._
-import org.apache.spark.sql.functions.{col, concat_ws, md5}
+import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
@@ -27,9 +27,18 @@ object TimeSeriesDataTabDF {
       val builder = new TimeSeriesDataTabDF(dfForTab)
         .withChecksumColumn
         .withOnlyTemporalColumns
-      builder
-        .dataframe().show(1)
+        .withColumnsMelted(tabName)
+
+      // Return the dataframe representation of the processed data.
+      builder.dataframe()
     }
+
+    // Merge all processed dataframes into one, using "checksum" and "date" as joining keys.
+    val reduced = dfTabs.reduce((l, r) => l.join(r, Seq("checksum", "date")))
+    // Generate dynamic aggregation based on the provided column list
+    val aggregations = targetTabs.map(colName => sum(colName).as(colName))
+    val grouped = reduced.groupBy("date", "checksum").agg(aggregations.head, aggregations.tail: _*)
+    grouped.show(1)
   }
 
   def xlsFromPath(path: String, tabName: String)(implicit spark: SparkSession): DataFrame = {
@@ -122,6 +131,25 @@ class TimeSeriesDataTabDF(df: TimeSeriesDataTabDF.DF) {
       df.drop(columnsToDrop: _*)
     )
   }
+
+  /**
+   * Transforms columns of date data into rows with the format: date, value.
+   *
+   * @return Instance of TimeSeriesDataTabDF with reshaped data.
+   */
+  def withColumnsMelted(valueColumnName: String): TimeSeriesDataTabDF = {
+    val dateColumns = df.columns.filterNot(colName =>
+      FieldDefinitions.filter(_.isShared).map(_.excelTabName).contains(colName) || colName == "checksum"
+    )
+    val stackExpr = dateColumns.map(col => s"'$col', `$col`").mkString(", ")
+    new TimeSeriesDataTabDF(
+      df.selectExpr(
+        "checksum",
+        s"stack(${dateColumns.length}, $stackExpr) as (date, ${valueColumnName.toLowerCase})"
+      )
+    )
+  }
+
 
   /**
    * Accessor method for the internal dataframe.

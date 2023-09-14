@@ -26,7 +26,9 @@ object TimeSeriesDataTabDF {
       val dfForTab = xlsFromPath(path, tabName)
       val builder = new TimeSeriesDataTabDF(dfForTab)
         .withChecksumColumn
-      builder.dataframe().show(1)
+        .withOnlyTemporalColumns
+      builder
+        .dataframe().show(1)
     }
   }
 
@@ -103,6 +105,22 @@ class TimeSeriesDataTabDF(df: TimeSeriesDataTabDF.DF) {
     val concatenatedColumns = concat_ws("", filteredColumns.map(col): _*)
     val checksum = md5(concatenatedColumns)
     new TimeSeriesDataTabDF(df.withColumn("checksum", checksum))
+  }
+
+  /**
+   * Removes columns that aren't relevant to the time series analysis.
+   *
+   * @return Instance of TimeSeriesDataTabDF with irrelevant columns dropped.
+   */
+  def withOnlyTemporalColumns: TimeSeriesDataTabDF = {
+    // We don't have any of the other columns defined in our field definition file, so we can just filter these out
+    val tabsToDrop = FieldTransformationDefinitions.FieldDefinitions
+      .map(_.excelTabName)
+
+    val columnsToDrop = df.columns.toSeq.filter(tabsToDrop.contains(_))
+    new TimeSeriesDataTabDF(
+      df.drop(columnsToDrop: _*)
+    )
   }
 
   /**

@@ -1,7 +1,7 @@
 package com.ganzekarte.examples.etl.xls
 
 import com.crealytics.spark.excel.ExcelDataFrameReader
-import com.ganzekarte.examples.etl.steps.step_5.FieldTransformationDefinitions._
+import com.ganzekarte.examples.etl.xls.FieldTransformationDefinitions._
 import org.apache.spark.sql.functions.{col, concat_ws, md5}
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.{DataFrame, SparkSession}

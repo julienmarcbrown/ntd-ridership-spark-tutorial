@@ -6,7 +6,7 @@ import org.apache.spark.SparkConf
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.apache.spark.sql.types.StructType
 
-object LoadXLS {
+object RidershipMasterTabDF {
 
 
   def xlsFromPath(path: String)(implicit spark: SparkSession): DataFrame = {

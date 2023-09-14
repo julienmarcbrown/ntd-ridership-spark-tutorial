@@ -1,4 +1,6 @@
-import com.ganzekarte.examples.steps.step_2.RidershipMasterTabDF
+package com.ganzekarte.examples.steps.step_3
+
+import com.ganzekarte.examples.steps.step_3.RidershipMasterTabDF
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 
@@ -23,6 +25,7 @@ object Pipeline {
 
     val df = RidershipMasterTabDF.xlsFromPath(path = path)
     df.show(5)
+    df.printSchema()
   }
 
 }

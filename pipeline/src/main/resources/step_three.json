@@ -1,0 +1,170 @@
+[
+  {
+    "excelTabName": "NTD ID",
+    "sanitizedName": "ntd_id",
+    "dataType": "StringType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "Legacy NTD ID",
+    "sanitizedName": "legacy_ntd_id",
+    "dataType": "StringType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "Agency",
+    "sanitizedName": "agency",
+    "dataType": "StringType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "Mode",
+    "sanitizedName": "mode",
+    "dataType": "StringType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "TOS",
+    "sanitizedName": "tos",
+    "dataType": "StringType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "3 Mode",
+    "sanitizedName": "3_mode",
+    "dataType": "StringType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "Status",
+    "sanitizedName": "status",
+    "dataType": "StringType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "Reporter Type",
+    "sanitizedName": "reporter_type",
+    "dataType": "StringType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "Organization Type",
+    "sanitizedName": "organization_type",
+    "dataType": "StringType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "HQ City",
+    "sanitizedName": "hq_city",
+    "dataType": "StringType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "HQ State",
+    "sanitizedName": "hq_state",
+    "dataType": "StringType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "UZA",
+    "sanitizedName": "uza",
+    "dataType": "LongType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "UACE CD",
+    "sanitizedName": "uace_cd",
+    "dataType": "StringType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "UZA Name",
+    "sanitizedName": "uza_name",
+    "dataType": "StringType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "UZA SQ Miles",
+    "sanitizedName": "uza_sq_miles",
+    "dataType": "FloatType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "UZA Population",
+    "sanitizedName": "uza_population",
+    "dataType": "FloatType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "Service Area Population",
+    "sanitizedName": "service_area_population",
+    "dataType": "FloatType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "Service Area SQ Miles",
+    "sanitizedName": "service_area_sq_miles",
+    "dataType": "FloatType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "Most Recent Report Year",
+    "sanitizedName": "most_recent_report_year",
+    "dataType": "LongType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "FY End Month",
+    "sanitizedName": "fy_end_month",
+    "dataType": "LongType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "FY End Year",
+    "sanitizedName": "fy_end_year",
+    "dataType": "LongType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "Passenger Miles FY",
+    "sanitizedName": "passenger_miles_fy",
+    "dataType": "FloatType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "Unlinked Passenger Trips FY",
+    "sanitizedName": "unlinked_passenger_trips_fy",
+    "dataType": "FloatType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "Avg Trip Length FY",
+    "sanitizedName": "avg_trip_length_fy",
+    "dataType": "FloatType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "Fares FY",
+    "sanitizedName": "fares_fy",
+    "dataType": "FloatType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "Operating Expenses FY",
+    "sanitizedName": "operating_expenses_Fy",
+    "dataType": "FloatType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "Avg Cost Per Trip FY",
+    "sanitizedName": "avg_cost_per_trip_fy",
+    "dataType": "FloatType",
+    "isNullable": false
+  },
+  {
+    "excelTabName": "Avg Fares Per Trip FY",
+    "sanitizedName": "avg_fare_per_trip_fy",
+    "dataType": "FloatType",
+    "isNullable": false
+  }
+]
